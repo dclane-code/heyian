@@ -1,0 +1,27 @@
+name: heyian
+base: core22
+version: '0.1'
+summary: snapcraft basics
+description: |
+  this snap was thrown together in a live demo
+
+grade: stable # must be 'stable' to release into candidate/stable channels
+confinement: strict
+
+parts:
+  my-part:
+    # See 'snapcraft plugins'
+    plugin: dump
+    source: src/
+
+    stage-packages:
+      - cowsay
+      - libgetopt-complete-perl
+
+apps:
+  heyian:
+    command: ./echo.sh
+  cowsay:
+    environment:
+      PERL5LIB: "$SNAP/usr/local/lib/$CRAFT_ARCH_TRIPLET/perl/5.34.0:$SNAP/usr/local/share/perl/5.34.0:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/perl5/5.34:$SNAP/usr/share/perl5:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/perl-base:$SNAP/usr/lib/$CRAFT_ARCH_TRIPLET/perl/5.34:$SNAP/usr/share/perl/5.34:$SNAP/usr/local/lib/site_perl"
+    command: /usr/games/cowsay -f $SNAP/usr/share/cowsay/cows/default.cow
